@@ -7,7 +7,7 @@ jobs:
   ci-pipeline:
     name: CI pipeline
     runs-on:
-      - self-hosted
+      - ubuntu-latest
     env:
       CI: true
       NODE_OPTIONS: --max-old-space-size=4096
