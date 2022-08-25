@@ -1,0 +1,52 @@
+name: Pipeline
+
+on:
+  push:
+
+jobs:
+  ci-pipeline:
+    name: CI pipeline
+    runs-on:
+      - self-hosted
+    env:
+      CI: true
+      NODE_OPTIONS: --max-old-space-size=4096
+      # Container registry
+      REGISTRY_URL: index.docker.io/mohamedmatrouh
+      REGISTRY_REPOSITORY: test-action
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set release version environment variable
+        run: |
+          RELEASE_VERSION=$(cat package.json \
+          | grep version \
+          | head -1 \
+          | awk -F: '{ print $2 }' \
+          | sed 's/[", ]//g')
+          echo "RELEASE_VERSION=$RELEASE_VERSION-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+
+      # Docker steps
+      - name: Log in to the container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY_URL }}
+          username: mohamedmatrouh
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build docker image
+        run: |
+          docker image build \
+          -f Dockerfile \
+          -t ${REGISTRY_REPOSITORY} \
+          .
+
+      - name: Tag docker image
+        run: |
+          docker image tag \
+          ${REGISTRY_REPOSITORY} \
+          ${REGISTRY_URL}/${REGISTRY_REPOSITORY}:${RELEASE_VERSION}
+
+      - name: Push docker image
+        run: docker push ${REGISTRY_URL}/${REGISTRY_REPOSITORY}:${RELEASE_VERSION}
