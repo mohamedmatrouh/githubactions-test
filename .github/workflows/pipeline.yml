@@ -12,7 +12,7 @@ jobs:
       CI: true
       NODE_OPTIONS: --max-old-space-size=4096
       # Container registry
-      REGISTRY_URL: index.docker.io/mohamedmatrouh
+      REGISTRY_URL: mohamedmatrouh
       REGISTRY_REPOSITORY: test-action
       REGISTRY_TOKEN: ${{ secrets.DOCKERHUB_PASSWORD }}
 
