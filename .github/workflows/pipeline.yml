@@ -25,16 +25,19 @@ jobs:
           echo "RELEASE_VERSION=$RELEASE_VERSION-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
 
       # Docker steps
-      - name: Log in to the container registry
-        uses: docker/login-action@v1
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
-          registry: ${{ env.REGISTRY_URL }}
           username: mohamedmatrouh
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-      - name: log creds
-        run: |
-          echo "REGISTRY_TOKEN: $REGISTRY_TOKEN"
+#
+#      - name: Log in to the container registry
+#        uses: docker/login-action@v1
+#        with:
+#          registry: ${{ env.REGISTRY_URL }}
+#          username: mohamedmatrouh
+#          password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Build docker image
         run: |
