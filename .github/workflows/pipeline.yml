@@ -14,6 +14,7 @@ jobs:
       # Container registry
       REGISTRY_URL: index.docker.io/mohamedmatrouh
       REGISTRY_REPOSITORY: test-action
+      REGISTRY_TOKEN: ${{ secrets.DOCKERHUB_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v2
@@ -30,6 +31,10 @@ jobs:
           registry: ${{ env.REGISTRY_URL }}
           username: mohamedmatrouh
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: log creds
+        run: |
+          echo "REGISTRY_TOKEN: $REGISTRY_TOKEN"
 
       - name: Build docker image
         run: |
