@@ -77,11 +77,9 @@ jobs:
           cd /tmp/gitops-test/dev
           
           kustomize edit set image ${REGISTRY_URL}/${REGISTRY_REPOSITORY}=${REGISTRY_URL}/${REGISTRY_REPOSITORY}:${RELEASE_VERSION}
-          cd /tmp/gitops-test/
-      - name: commit
-
-        run: |
           
+          cd /tmp/gitops-test/
+
           git version
           
           git status
