@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  ci-pipeline:
+  build_and_push_image:
     name: CI pipeline
     runs-on:
       - ubuntu-latest
@@ -54,3 +54,44 @@ jobs:
 
       - name: Push docker image
         run: docker push ${REGISTRY_URL}/${REGISTRY_REPOSITORY}:${RELEASE_VERSION}
+
+# update gitops repo
+      - uses: webfactory/ssh-agent@v0.5.4
+
+        with:
+
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - uses: imranismail/setup-kustomize@v1
+
+        with:
+
+          kustomize-version: '3.9.4'
+
+      - run: git clone git@github.com:mohamedmatrouh/gitops-test.git .
+
+      - name: update image campus home
+
+        run: |
+          
+          cd dev
+          
+          kustomize edit set image ${REGISTRY_URL}/${REGISTRY_REPOSITORY}=${REGISTRY_URL}/${REGISTRY_REPOSITORY}:${RELEASE_VERSION}
+
+      - name: commit
+
+        run: |
+          
+          git version
+          
+          git add .
+          
+          git config --local user.email "action@github.com"
+          
+          git config --local user.name "GitHub Action"
+          
+          git commit -m "[GitHub Action] Set ${{inputs.environment}} frontend image tag to ${RELEASE_VERSION}"
+
+      - name: Push changes
+
+        run: git push
