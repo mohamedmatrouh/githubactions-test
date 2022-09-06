@@ -68,13 +68,13 @@ jobs:
 
           kustomize-version: '3.9.4'
 
-      - run: git clone git@github.com:mohamedmatrouh/gitops-test.git .
+      - run: git clone git@github.com:mohamedmatrouh/gitops-test.git
 
       - name: update image campus home
 
         run: |
           
-          cd dev
+          cd gitops-test/dev
           
           kustomize edit set image ${REGISTRY_URL}/${REGISTRY_REPOSITORY}=${REGISTRY_URL}/${REGISTRY_REPOSITORY}:${RELEASE_VERSION}
 
