@@ -50,6 +50,8 @@ jobs:
       REGISTRY_TOKEN: ${{ secrets.DOCKERHUB_PASSWORD }}
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
@@ -100,7 +102,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: webfactory/ssh-agent@v0.5.4
-
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
