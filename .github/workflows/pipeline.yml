@@ -90,7 +90,7 @@ jobs:
           
           git config --local user.name "GitHub Action"
           
-          git commit -m "[GitHub Action] Set ${{inputs.environment}} frontend image tag to ${RELEASE_VERSION}"
+          git commit -a -m "[GitHub Action] Set ${{inputs.environment}} frontend image tag to ${RELEASE_VERSION}"
 
       - name: Push changes
 
