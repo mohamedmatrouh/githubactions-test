@@ -43,6 +43,7 @@ jobs:
   build-docker-image:
     name: Build docker image
     runs-on: ubuntu-latest
+    needs: test-build-code
     env:
       REGISTRY_URL: index.docker.io
       REGISTRY_REPOSITORY: mohamedmatrouh/test-action
@@ -94,6 +95,7 @@ jobs:
           echo "::set-output name=image-tag::${RELEASE_VERSION}"
 
   update-gitops-repo:
+    needs: build-docker-image
     name: update git repository
     runs-on: ubuntu-latest
     steps:
