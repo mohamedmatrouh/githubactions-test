@@ -132,7 +132,7 @@ jobs:
           git status
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -a -m "[GitHub Action] Set ${{inputs.environment}} frontend image tag to ${RELEASE_VERSION}"
+          git commit -a -m "[GitHub Action] Set $GITHUB_BASE_REF frontend image tag to $IMAGE_TAG"
           git push
           cd ..
           rm -rf gitops-test
