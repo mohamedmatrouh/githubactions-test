@@ -25,7 +25,7 @@ jobs:
       - uses: actions/cache@v3
         id: cache
         with:
-          path: node_modules
+          path: ./node_modules
           key: node_modules-${{ hashFiles('./package.json') }}
 
       - name: install dependencies
