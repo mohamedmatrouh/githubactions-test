@@ -76,7 +76,7 @@ jobs:
           
           cd /tmp/gitops-test/dev
           
-          kustomize edit set image ${REGISTRY_URL}/${REGISTRY_REPOSITORY}=${REGISTRY_URL}/${REGISTRY_REPOSITORY}:${RELEASE_VERSION}
+          kustomize edit set image ${REGISTRY_REPOSITORY}=${REGISTRY_REPOSITORY}:${RELEASE_VERSION}
           
           cd /tmp/gitops-test/
 
@@ -90,6 +90,6 @@ jobs:
           
           git config --local user.name "GitHub Action"
           
-          git commit -a -m "[GitHub Action] Set ${{inputs.environment}} frontend image tag to ${RELEASE_VERSION}"
+          git commit -m "[GitHub Action] Set ${{inputs.environment}} frontend image tag to ${RELEASE_VERSION}"
           
           git push
