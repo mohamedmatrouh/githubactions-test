@@ -84,6 +84,8 @@ jobs:
           
           git version
           
+          git status
+          
           git add .
           
           git config --local user.email "action@github.com"
