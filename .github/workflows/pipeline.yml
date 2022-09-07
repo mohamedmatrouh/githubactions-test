@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-test:
-    uses: .github/workflows/npm.yaml
+    uses: ./.github/workflows/npm.yaml
 
   build-docker-image:
     name: Build docker image
