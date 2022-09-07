@@ -10,7 +10,6 @@ on:
 
 jobs:
   build-test:
-    if: github.branch == 'prod'
     uses: ./.github/workflows/npm.yaml
 
   build-docker-image:

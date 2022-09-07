@@ -10,10 +10,10 @@ on:
 
 jobs:
   build-test:
-    if: github.branch == 'main'
     uses: ./.github/workflows/npm.yaml
 
   build-docker-image:
+    if: github.ref == 'refs/heads/prod'
     name: Build docker image
 
     runs-on: ubuntu-latest
