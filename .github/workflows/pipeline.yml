@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-test:
-    uses: ./npm.yaml
+    uses: ./npm.yaml@v1
 
   build-docker-image:
     name: Build docker image
