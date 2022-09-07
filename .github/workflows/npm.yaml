@@ -1,7 +1,5 @@
 name: test and build workflow
 
-on:
-  workflow_call:
 jobs:
   test-build-code:
     name: Test and Build job
