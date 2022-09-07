@@ -1,15 +1,16 @@
-name: Pipeline
+name: Prod pipeline
 
 on:
   push:
     branches:
-      - main
+      - prod
   pull_request:
     branches:
-      - main
+      - prod
 
 jobs:
   build-test:
+    if: github.branch == 'prod'
     uses: ./.github/workflows/npm.yaml
 
   build-docker-image:
