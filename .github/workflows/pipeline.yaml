@@ -7,36 +7,36 @@ on:
     branches: [ prod ]
 
 jobs:
-  ci-pipeline:
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: 🔧 Setup
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: maven
-
-      - name: Set up Maven
-        uses: stCarolas/setup-maven@v4.3
-        with:
-          maven-version: 3.8.5
-
-      - name: Set Release version env variable
-        run: |
-          echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-
-      - name: Cache Maven packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('./pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+#  ci-pipeline:
+#
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: 🔧 Setup
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: '11'
+#          distribution: 'temurin'
+#          cache: maven
+#
+#      - name: Set up Maven
+#        uses: stCarolas/setup-maven@v4.3
+#        with:
+#          maven-version: 3.8.5
+#
+#      - name: Set Release version env variable
+#        run: |
+#          echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+#
+#      - name: Cache Maven packages
+#        uses: actions/cache@v2
+#        with:
+#          path: ~/.m2/repository
+#          key: ${{ runner.os }}-maven-${{ hashFiles('./pom.xml') }}
+#          restore-keys: |
+#            ${{ runner.os }}-maven-
 
   build_and_push_image:
     name: Publish to registry
@@ -45,45 +45,45 @@ jobs:
     env:
       IMAGE_NAME: index.docker.io/mohamedmatrouh/test-action
     steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: recursive
-      - name: 🔧 Setup
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: maven
-      - name: Set up Maven
-        uses: stCarolas/setup-maven@v4.3
-        with:
-          maven-version: 3.8.5
-
-      - name: Cache Maven packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      - name: Set release version environment variable
-        run: |
-          RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo "RELEASE_VERSION=$RELEASE_VERSION-$GITHUB_SHA" >> $GITHUB_ENV
-
-      - name: 📦 Build Docker Images
-        run: mvn package jib:build -am -DskipTests -Dmaven.repo.local=$HOME/.m2/repository
-        env:
-          REGISTRY_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-          IMAGE_TAG: ${{ env.RELEASE_VERSION }}
-          IMAGE_NAME: ${{env.IMAGE_NAME}}
+#      - uses: actions/checkout@v2
+#        with:
+#          submodules: recursive
+#      - name: 🔧 Setup
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: '11'
+#          distribution: 'temurin'
+#          cache: maven
+#      - name: Set up Maven
+#        uses: stCarolas/setup-maven@v4.3
+#        with:
+#          maven-version: 3.8.5
+#
+#      - name: Cache Maven packages
+#        uses: actions/cache@v2
+#        with:
+#          path: ~/.m2/repository
+#          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
+#          restore-keys: |
+#            ${{ runner.os }}-maven-
+#
+#      - name: Set release version environment variable
+#        run: |
+#          RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+#          echo "RELEASE_VERSION=$RELEASE_VERSION-$GITHUB_SHA" >> $GITHUB_ENV
+#
+#      - name: 📦 Build Docker Images
+#        run: mvn package jib:build -am -DskipTests -Dmaven.repo.local=$HOME/.m2/repository
+#        env:
+#          REGISTRY_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+#          REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+#          IMAGE_TAG: ${{ env.RELEASE_VERSION }}
+#          IMAGE_NAME: ${{env.IMAGE_NAME}}
       - name: pass docker image name and tag to next job
         id: output
         run: |
-          echo "::set-output name=image-name::$IMAGE_NAME"
-          echo "::set-output name=image-tag::$RELEASE_VERSION"
+          echo "::set-output name=image-name::hello"
+          echo "::set-output name=image-tag::world"
 
   update-gitops-repo:
     needs: build_and_push_image
