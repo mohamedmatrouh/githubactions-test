@@ -41,7 +41,7 @@ jobs:
   build_and_push_image:
     name: Publish to registry
     runs-on: ubuntu-latest
-    needs: ci-pipeline
+#    needs: ci-pipeline
     env:
       IMAGE_NAME: index.docker.io/mohamedmatrouh/test-action
     steps:
