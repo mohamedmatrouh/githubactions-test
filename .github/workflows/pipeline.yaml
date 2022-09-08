@@ -9,7 +9,6 @@ on:
 
 jobs:
   build_and_push_image:
-    if: github.event.pull_request.merged == true
     name: Publish to registry
     runs-on: ubuntu-latest
     outputs:
