@@ -102,7 +102,7 @@ jobs:
         with:
           kustomize-version: '3.9.4'
 
-
+      - run: echo "needs.build_and_push_image.outputs:${{needs.build_and_push_image.outputs}}"
       - name: update image campus home
         run: |
           git clone git@github.com:mohamedmatrouh/gitops-test.git /tmp/gitops-test
