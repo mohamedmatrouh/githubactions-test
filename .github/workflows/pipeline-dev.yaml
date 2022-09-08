@@ -2,9 +2,9 @@ name: Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ dev ]
   pull_request:
-    branches: [ main ]
+    branches: [ dev ]
 
 
 jobs:
@@ -43,4 +43,3 @@ jobs:
       image-name: ${{ needs.build_and_push_image.outputs.image-name }}
       image-tag: ${{ needs.build_and_push_image.outputs.image-tag }}
       DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-
