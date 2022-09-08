@@ -2,12 +2,14 @@ name: Pipeline
 
 on:
   push:
-    branches: [ prod, main ]
+    branches: [ prod ]
   pull_request:
     branches: [ prod ]
 
+
 jobs:
   build_and_push_image:
+    if: github.event.pull_request.merged == true
     name: Publish to registry
     runs-on: ubuntu-latest
     outputs:
