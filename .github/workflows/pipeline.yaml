@@ -66,12 +66,12 @@ jobs:
 #          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
 #          restore-keys: |
 #            ${{ runner.os }}-maven-
-#
-#      - name: Set release version environment variable
-#        run: |
-#          RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-#          echo "RELEASE_VERSION=$RELEASE_VERSION-$GITHUB_SHA" >> $GITHUB_ENV
-#
+
+      - name: Set release version environment variable
+        run: |
+          RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "RELEASE_VERSION=$RELEASE_VERSION-$GITHUB_SHA" >> $GITHUB_ENV
+
 #      - name: 📦 Build Docker Images
 #        run: mvn package jib:build -am -DskipTests -Dmaven.repo.local=$HOME/.m2/repository
 #        env:
@@ -82,8 +82,10 @@ jobs:
       - name: pass docker image name and tag to next job
         id: output
         run: |
-          echo "::set-output name=image-name::hello"
-          echo "::set-output name=image-tag::world"
+          echo "image name: ${REGISTRY_URL}/${REGISTRY_REPOSITORY}"
+          echo "release version: ${RELEASE_VERSION}"
+          echo "::set-output name=image-name::${REGISTRY_URL}/${REGISTRY_REPOSITORY}"
+          echo "::set-output name=image-tag::${RELEASE_VERSION}"
 
   update-gitops-repo:
     needs: build_and_push_image
