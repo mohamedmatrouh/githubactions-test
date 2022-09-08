@@ -47,6 +47,6 @@ jobs:
           git commit -a -m "[GitHub Action] Set $GITHUB_BASE_REF frontend image tag to ${{ inputs.image-tag }}"
           git push
       - name: clean up
-        run:
+        run: |
           cd /tmp
-          rm -rf /tmp/temp-folder
+          rm -rf temp-folder
