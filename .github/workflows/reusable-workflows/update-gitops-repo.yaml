@@ -30,17 +30,23 @@ jobs:
         with:
           kustomize-version: '3.9.4'
 
-      - name: update image campus home
+      - name: clone the repository
+        run: git clone "${{ inputs.gitops-repo }}" /tmp/temp-folder
+
+      - name: update image
         run: |
-          git clone "${{ inputs.gitops-repo }}" /tmp/temp-folder
           cd /tmp/temp-folder/${{ inputs.kustomization-path }}
           kustomize edit set image ${{ inputs.image-name }}=${{ inputs.image-name }}:${{ inputs.image-tag }}
           cd /tmp/temp-folder
+      - name: push chnages
+        run: |
           git version
           git status
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -a -m "[GitHub Action] Set $GITHUB_BASE_REF frontend image tag to ${{ inputs.image-tag }}"
           git push
+      - name: clean up
+        run:
           cd /tmp
           rm -rf /tmp/temp-folder
