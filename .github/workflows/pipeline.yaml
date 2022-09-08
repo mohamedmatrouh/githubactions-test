@@ -86,8 +86,8 @@ jobs:
         run: |
           echo "image name: ${REGISTRY_URL}/${REGISTRY_REPOSITORY}"
           echo "release version: ${RELEASE_VERSION}"
-          echo "::set-output name=image-name::${REGISTRY_URL}/${REGISTRY_REPOSITORY}"
-          echo "::set-output name=image-tag::${RELEASE_VERSION}"
+          echo "::set-output name=image-name::${{env.IMAGE_NAME}}"
+          echo "::set-output name=image-tag::${{env.RELEASE_VERSION}}"
 
   update-gitops-repo:
     needs: build_and_push_image
