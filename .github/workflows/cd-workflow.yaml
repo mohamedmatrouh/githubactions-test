@@ -1,0 +1,9 @@
+on:
+  workflow_call:
+
+jobs:
+  do-nothing:
+    name: Do nothing
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "hello world!"

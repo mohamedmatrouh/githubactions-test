@@ -34,9 +34,13 @@ jobs:
 
   update-gitops-repo:
     needs: build_and_push_image
+
     name: update git repository
+
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev'
+
     uses: ./.github/workflows/update-gitops-repo.yaml
+
     with:
       gitops-repo: git@github.com:mohamedmatrouh/gitops-test.git
       kustomization-path: ./dev
