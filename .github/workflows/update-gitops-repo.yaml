@@ -37,9 +37,9 @@ jobs:
         run: |
           cd /tmp/temp-folder/${{ inputs.kustomization-path }}
           kustomize edit set image ${{ inputs.image-name }}=${{ inputs.image-name }}:${{ inputs.image-tag }}
-          cd /tmp/temp-folder
       - name: push chnages
         run: |
+          cd /tmp/temp-folder
           git version
           git status
           git config --local user.email "action@github.com"
