@@ -97,7 +97,7 @@ jobs:
       IMAGE_NAME: ${{needs.build_and_push_image.outputs.image-name}}
       IMAGE_TAG: ${{needs.build_and_push_image.outputs.image-tag}}
     steps:
-      - run: echo "needs.job1.outputs.output1 ${{needs.build_and_push_image.outputs.image-tag}} needs.job1.outputs.output2 ${{needs.build.build_and_push_image.outputs.image-tag}}"
+      - run: echo "needs.build_and_push_image.outputs.image-tag ${{needs.build_and_push_image.outputs.image-tag}}"
       - uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
