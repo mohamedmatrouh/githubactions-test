@@ -84,8 +84,8 @@ jobs:
       - name: pass docker image name and tag to next job
         id: output
         run: |
-          echo "image name: ${REGISTRY_URL}/${REGISTRY_REPOSITORY}"
-          echo "release version: ${RELEASE_VERSION}"
+          echo "image name: ${{env.IMAGE_NAME}}"
+          echo "release version: ${{env.RELEASE_VERSION}}"
           echo "::set-output name=image-name::${{env.IMAGE_NAME}}"
           echo "::set-output name=image-tag::${{env.RELEASE_VERSION}}"
 
