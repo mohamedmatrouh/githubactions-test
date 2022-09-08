@@ -42,8 +42,8 @@ jobs:
     name: Publish to registry
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.output.outputs.image-name }}
-      output2: ${{ steps.output.outputs.image-tag }}
+      image-name: ${{ steps.output.outputs.image-name }}
+      image-tag: ${{ steps.output.outputs.image-tag }}
 #    needs: ci-pipeline
     env:
       IMAGE_NAME: index.docker.io/mohamedmatrouh/test-action
