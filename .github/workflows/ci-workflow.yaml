@@ -1,7 +1,7 @@
 on:
   workflow_call:
 
-job:
+jobs:
   do-nothing:
     name: Do nothing
     runs-on: ubuntu-latest
